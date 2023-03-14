@@ -109,10 +109,23 @@ Create environment variables used to configure the nextcloud container as well a
       key: {{ .Values.externalDatabase.existingSecret.passwordKey | default "db-password" }}
 {{- else }}
   {{- if eq .Values.externalDatabase.type "postgresql" }}
+    {{- if .Values.externalDatabase.existingConfigMap.enabled }}
+- name: POSTGRES_HOST
+  valueFrom:
+    configMapKeyRef:
+      name: {{ .Values.externalDatabase.existingConfigMap.configMapName | default (printf "%s-%s" .Release.Name "db") }}
+      key: {{ .Values.externalDatabase.existingConfigMap.hostKey }}
+- name: POSTGRES_DB
+  valueFrom:
+    configMapKeyRef:
+      name: {{ .Values.externalDatabase.existingConfigMap.configMapName | default (printf "%s-%s" .Release.Name "db") }}
+      key: {{ .Values.externalDatabase.existingConfigMap.databaseKey }}
+    {{- else }}
 - name: POSTGRES_HOST
   value: {{ .Values.externalDatabase.host | quote }}
 - name: POSTGRES_DB
   value: {{ .Values.externalDatabase.database | quote }}
+    {{- end }}
 - name: POSTGRES_USER
   valueFrom:
     secretKeyRef:

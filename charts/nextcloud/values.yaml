@@ -260,6 +260,12 @@ externalDatabase:
     # usernameKey: db-username
     # passwordKey: db-password
 
+  existingConfigMap:
+    enabled: false
+    # configMapName: nameofsecret
+    # hostKey: db-username
+    # databaseKey: db-password
+
 ##
 ## MariaDB chart configuration
 ##
