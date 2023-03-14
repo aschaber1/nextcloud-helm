@@ -259,6 +259,8 @@ externalDatabase:
     # secretName: nameofsecret
     # usernameKey: db-username
     # passwordKey: db-password
+    # hostKey: db-username
+    # databaseKey: db-password
 
   existingConfigMap:
     enabled: false
